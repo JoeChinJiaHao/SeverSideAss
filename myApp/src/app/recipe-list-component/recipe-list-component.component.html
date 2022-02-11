@@ -1,1 +1,8 @@
-<p>recipe-list-component works!</p>
+<p>My Recipe List</p>
+
+<table *ngFor="let i of recipeList">
+  <tr>
+    <a href="" [routerLink]="['/recipe',i.id]"> {{i.title}}</a>
+  </tr>
+</table>
+<button type="button">Add</button>

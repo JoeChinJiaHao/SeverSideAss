@@ -10,6 +10,7 @@ import { RecipeDetailComponentComponent } from './recipe-detail-component/recipe
 import { RecipeAddComponentComponent } from './recipe-add-component/recipe-add-component.component';
 import { RouterModule } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http'
+import { RecipeService } from './RecipeService.service';
 const appRoutes=[
           {path:'',component:RecipeListComponentComponent},
           {path:'recipe/:recipeId',component:RecipeDetailComponentComponent},
@@ -34,7 +35,7 @@ const appRoutes=[
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
