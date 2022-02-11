@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Recipe } from '../model';
+import { RecipeService } from '../RecipeService.service';
 
 @Component({
   selector: 'app-recipe-detail-component',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeDetailComponentComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private recipeSvc:RecipeService,private aRoute:ActivatedRoute) { }
+  recipe!:Recipe
+  recipeId!:string
   ngOnInit(): void {
+    this.recipeId=this.aRoute.snapshot.params['recipeId']
+    this.recipeSvc.getRecipe(this.recipeId)
+                  .then(result=>{
+                    console.log(result)
+                    this.recipe=result
+                    console.log(this.recipe)})
   }
 
 }

@@ -5,6 +5,6 @@ export interface RecipeSummary{
 
 export interface Recipe extends RecipeSummary{
   image:string
-  instruction:string
+  instructions:string
   ingredients:string[]
 }
