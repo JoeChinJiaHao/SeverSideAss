@@ -60,7 +60,7 @@ public class RecipeRestController {
             logger.log(Level.INFO, "from tryCatch>>>>%S".formatted(data.toString()));
             myRecipeobj.setInstruction(data.getJsonObject("instructions").toString());
             myRecipeobj.setTitle(data.getJsonObject("title").toString());
-            JsonArray myIngArr=(JsonArray )data.getJsonArray("ingredients");
+            JsonArray myIngArr=(JsonArray)data.getJsonArray("ingredients");
             for(int i=0;i<=myIngArr.size();i++){
                 myRecipeobj.addIngredient(myIngArr.get(i).toString());
             }
