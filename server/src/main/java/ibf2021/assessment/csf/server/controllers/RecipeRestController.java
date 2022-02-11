@@ -3,12 +3,14 @@ package ibf2021.assessment.csf.server.controllers;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,25 +48,25 @@ public class RecipeRestController {
     private final Logger logger = Logger.getLogger(ServerApplication.class.getName());
 
     @PostMapping(path="api/recipe")
-    public ResponseEntity<String> saveOneRecipe(@RequestBody String payload){
+    public ResponseEntity<String> saveOneRecipe(@RequestBody String payload) {
         logger.log(Level.INFO,">>>received");
         Recipe myRecipeobj = new Recipe();
-        List<String> ingreList = new LinkedList<String>();
+        
         logger.log(Level.INFO, ">>>>%s".formatted(payload));
-        try(InputStream is = new ByteArrayInputStream(payload.getBytes(StandardCharsets.UTF_8))){
+        try(InputStream is = new ByteArrayInputStream(payload.getBytes())){
             JsonReader reader =Json.createReader(new BufferedReader(new InputStreamReader(is)));
             JsonObject data = reader.readObject();
             myRecipeobj.setImage(data.getJsonObject("image").toString());
+            logger.log(Level.INFO, "from tryCatch>>>>%S".formatted(data.toString()));
             myRecipeobj.setInstruction(data.getJsonObject("instructions").toString());
             myRecipeobj.setTitle(data.getJsonObject("title").toString());
-            JsonArray myIngArr=data.getJsonArray("ingredients");
-            for(jakarta.json.JsonValue v:myIngArr){
-                ingreList.add(v.toString());
-                myRecipeobj.addIngredient(v.toString());
+            JsonArray myIngArr=(JsonArray )data.getJsonArray("ingredients");
+            for(int i=0;i<=myIngArr.size();i++){
+                myRecipeobj.addIngredient(myIngArr.get(i).toString());
             }
             this.recipeSvc.addRecipe(myRecipeobj);
         }catch(Exception e){
-
+            logger.log(Level.INFO,"Error %s".formatted(e));
         }
         
         
@@ -82,7 +84,7 @@ public class RecipeRestController {
     @GetMapping(path="/api/recipe/{id}")
     public ResponseEntity<String> getOneRecipe(@PathVariable String id){
         Optional<Recipe> opt = recipeSvc.getRecipeById(id);
-        JsonBuilderFactory factory = Json.createBuilderFactory(null);
+        
         if(opt.isPresent()){
             JsonArrayBuilder Jarr = Json.createArrayBuilder();
             for(String i:opt.get().getIngredients()){

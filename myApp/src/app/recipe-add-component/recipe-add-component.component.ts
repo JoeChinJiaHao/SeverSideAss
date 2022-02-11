@@ -38,7 +38,7 @@ export class RecipeAddComponentComponent implements OnInit {
     }
     console.log(tempIngredients)
     //this.myReceipe=myValue
-    this.myReceipe={title:myValue.title,image:myValue.image,instructions:myValue.instructions,ingredients:tempIngredients,id:uuidv4().toString().substring(0,8)} as Recipe
+    this.myReceipe={"title":myValue.title,"image":myValue.image,"instructions":myValue.instructions,"ingredients":tempIngredients,"id":uuidv4().toString().substring(0,8)}
     console.log(this.myReceipe)
     this.recipeSvc.saveRecipe(this.myReceipe).then(result=>{
                                               console.log(result)
