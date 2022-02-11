@@ -11,6 +11,7 @@ import { RecipeAddComponentComponent } from './recipe-add-component/recipe-add-c
 import { RouterModule } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http'
 import { RecipeService } from './RecipeService.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const appRoutes=[
           {path:'',component:RecipeListComponentComponent},
           {path:'recipe/:recipeId',component:RecipeDetailComponentComponent},
@@ -26,6 +27,8 @@ const appRoutes=[
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {

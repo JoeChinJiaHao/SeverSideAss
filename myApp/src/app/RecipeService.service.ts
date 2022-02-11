@@ -12,6 +12,6 @@ export class RecipeService{
     return lastValueFrom(this.http.get('http://localhost:8080/api/recipes'))
   }
   getRecipe(recipeId:string):Promise<any>{
-   return lastValueFrom(this.http.get('http://localhost:8080/api/recipe/'+recipeId))
+   return lastValueFrom(this.http.get(`http://localhost:8080/api/recipe/${recipeId}`))
   }
 }

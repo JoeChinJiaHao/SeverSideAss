@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { RecipeSummary } from '../model';
 import { RecipeService } from '../RecipeService.service';
@@ -10,7 +11,7 @@ import { RecipeService } from '../RecipeService.service';
 })
 export class RecipeListComponentComponent implements OnInit {
 
-  constructor(private recipeSvc:RecipeService) { }
+  constructor(private recipeSvc:RecipeService,private router:Router) { }
   recipeList!:RecipeSummary[]
 
   ngOnInit(): void {
@@ -20,5 +21,7 @@ export class RecipeListComponentComponent implements OnInit {
                    this.recipeList=result
                   console.log(this.recipeList)})
   }
-
+  goAdd(){
+    this.router.navigate(['/add']);
+  }
 }

@@ -13,6 +13,8 @@ export class RecipeDetailComponentComponent implements OnInit {
   constructor(private recipeSvc:RecipeService,private aRoute:ActivatedRoute) { }
   recipe!:Recipe
   recipeId!:string
+  errorMessage!:any
+  gotError:boolean=false
   ngOnInit(): void {
     this.recipeId=this.aRoute.snapshot.params['recipeId']
     this.recipeSvc.getRecipe(this.recipeId)
@@ -20,6 +22,10 @@ export class RecipeDetailComponentComponent implements OnInit {
                     console.log(result)
                     this.recipe=result
                     console.log(this.recipe)})
+                  .catch(error=>{
+                    this.errorMessage=error
+
+                    this.gotError=true})
   }
 
 }

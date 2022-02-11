@@ -1,9 +1,13 @@
+<h1 *ngIf="gotError">{{errorMessage.error}}</h1>
+<div *ngIf="!gotError">
+  <h1>{{recipe?.title}}</h1>
+  <img src={{recipe?.image}} alt="" style="width:80%">
+  <h2>Ingredients</h2>
+  <ul *ngFor="let item of recipe?.ingredients">
+    <li>{{item}}</li>
+  </ul>
+  <h2>Instructions</h2>
+  <p>{{recipe?.instructions}}</p>
 
-<h1>{{recipe?.title}}</h1>
-<img src={{recipe?.image}} alt="">
-<h2>Ingredients</h2>
-<ul *ngFor="let item of recipe?.ingredients">
-  <li>{{item}}</li>
-</ul>
-<h2>Instructions</h2>
-<p>{{recipe?.instructions}}</p>
+</div>
+<button type="button" [routerLink]="['/']" >Back</button>
